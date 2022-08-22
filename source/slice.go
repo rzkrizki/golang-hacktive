@@ -1,8 +1,8 @@
-package main
+package slice
 
 import "fmt"
 
-func main() {
+func slice() {
 	var friends = make([]string, 0)
 	friends = append(friends, "fajar", "agus", "maulana", "zakaria", "wahyu", "zayyan", "rizki", "ramadhan", "billy", "hendar")
 
