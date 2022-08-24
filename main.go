@@ -1,29 +1,32 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
+
+type Friends struct {
+	nama string
+}
 
 func main() {
-	fajar := "fajar"
-	agus := "agus"
-	maulana := "maulana"
-	zakaria := "zakaria"
-	wahyu := "wahyu"
-	zayyan := "zayyan"
-	rizki := "rizki"
-	ramadhan := "ramadhan"
-	billy := "billy"
-	hendar := "hendar"
 
-	lists := []*string{&fajar, &agus, &maulana, &zakaria, &wahyu, &zayyan, &rizki, &ramadhan, &billy, &hendar}
+	lists := []*Friends{
+		{nama: "fajar"},
+		{nama: "agus"},
+		{nama: "maulana"},
+		{nama: "zakaria"},
+		{nama: "wahyu"},
+		{nama: "zayyan"},
+		{nama: "rizki"},
+		{nama: "ramadhan"},
+		{nama: "billy"},
+		{nama: "hendar"},
+	}
 
-	var cetak = func(lists []*string) []string {
+	var cetak = func(lists []*Friends) []string {
 
 		var results []string
 
 		for _, n := range lists {
-			results = append(results, *n)
+			results = append(results, n.nama)
 		}
 
 		return results
