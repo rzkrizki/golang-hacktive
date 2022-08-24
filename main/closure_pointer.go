@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func closuser_pointer() {
+func closure_pointer() {
 	fajar := "fajar"
 	agus := "agus"
 	maulana := "maulana"
