@@ -1,19 +1,33 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
+	fajar := "fajar"
+	agus := "agus"
+	maulana := "maulana"
+	zakaria := "zakaria"
+	wahyu := "wahyu"
+	zayyan := "zayyan"
+	rizki := "rizki"
+	ramadhan := "ramadhan"
+	billy := "billy"
+	hendar := "hendar"
 
-	var friends = join()
+	lists := []*string{&fajar, &agus, &maulana, &zakaria, &wahyu, &zayyan, &rizki, &ramadhan, &billy, &hendar}
 
-	for i, n := range friends {
-		fmt.Println(i, n)
+	var cetak = func(lists []*string) []string {
+
+		var results []string
+
+		for _, n := range lists {
+			results = append(results, *n)
+		}
+
+		return results
 	}
-}
 
-func join() []string {
-	var friends = make([]string, 0)
-	friends = append(friends, "fajar", "agus", "maulana", "zakaria", "wahyu", "zayyan", "rizki", "ramadhan", "billy", "hendar")
-
-	return friends
+	fmt.Println(cetak(lists))
 }
