@@ -17,8 +17,8 @@ func main() {
 
 	args := os.Args[1]
 	i, _ := strconv.Atoi(args)
-	getFriend := getFriend(i)
 
+	getFriend := getFriend(i)
 	fmt.Println(getFriend)
 }
 
