@@ -4,10 +4,6 @@ import (
 	"fmt"
 )
 
-type Friends struct {
-	nama string
-}
-
 func closure_pointer() {
 
 	lists := []*Friends{

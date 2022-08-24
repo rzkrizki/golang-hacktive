@@ -13,7 +13,7 @@ type Friends struct {
 	alasan    string
 }
 
-func main() {
+func assignemt1() {
 
 	args := os.Args[1]
 	i, _ := strconv.Atoi(args)
