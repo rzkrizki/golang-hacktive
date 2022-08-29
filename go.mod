@@ -1,3 +1,3 @@
-module project-pertama
+module "golang-hacktive"
 
 go 1.19
