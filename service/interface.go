@@ -1,5 +1,12 @@
 package service
 
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"strconv"
+)
+
 type User struct {
 	ID   int
 	Nama string
@@ -13,6 +20,9 @@ type UserIface interface {
 	Register(u *User) string
 	GetUser() []*User
 	GetUserbyID(number int) *User
+	RegisterUser(w http.ResponseWriter, r *http.Request)
+	GetUserRegister(w http.ResponseWriter, r *http.Request)
+	GetUserRegisterbyID(w http.ResponseWriter, r *http.Request)
 }
 
 func NewUserService(db []*User) UserIface {
@@ -39,22 +49,42 @@ func (u *UserService) GetUserbyID(number int) *User {
 	return nil
 }
 
-// func main() {
-// 	var db []*service.User
-// 	userSrv := service.NewUserService(db)
-// 	user1 := userSrv.Register(&service.User{ID: 1, Nama: "rizki"})
-// 	fmt.Println(user1)
-// 	user2 := userSrv.Register(&service.User{ID: 2, Nama: "zaka"})
-// 	fmt.Println(user2)
-// 	user3 := userSrv.Register(&service.User{ID: 3, Nama: "fajar"})
-// 	fmt.Println(user3)
-// 	fmt.Println("-----------Hasil get user-------------")
-// 	resGet := userSrv.GetUser()
-// 	for _, v := range resGet {
-// 		fmt.Println(v.ID, v.Nama)
-// 	}
+func (u *UserService) GetUserRegister(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 
-// 	fmt.Println("-----------Hasil get user by id-------------")
-// 	getusr1 := userSrv.GetUserbyID(&service.User{ID: 1})
-// 	fmt.Println(getusr1)
-// }
+	if r.Method == "GET" {
+		resGet := u.GetUser()
+		json.NewEncoder(w).Encode(resGet)
+		return
+	}
+
+	http.Error(w, "Invalid method", http.StatusBadRequest)
+}
+
+func (u *UserService) RegisterUser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	if r.Method == "POST" {
+		id, _ := strconv.Atoi(r.FormValue("id"))
+		user := u.Register(&User{ID: id, Nama: r.FormValue("name")})
+		fmt.Println(user)
+		json.NewEncoder(w).Encode(user)
+		return
+	}
+
+	http.Error(w, "Invalid method", http.StatusBadRequest)
+}
+
+func (u *UserService) GetUserRegisterbyID(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	if r.Method == "GET" {
+		id, _ := strconv.Atoi(r.FormValue("id"))
+		user := u.GetUserbyID(id)
+		json.NewEncoder(w).Encode(user)
+		return
+
+	}
+
+	http.Error(w, "Invalid method", http.StatusBadRequest)
+}
