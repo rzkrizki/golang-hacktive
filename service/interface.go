@@ -1,10 +1,11 @@
 package service
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 type User struct {
@@ -20,9 +21,9 @@ type UserIface interface {
 	Register(u *User) string
 	GetUser() []*User
 	GetUserbyID(number int) *User
-	RegisterUser(w http.ResponseWriter, r *http.Request)
-	GetUserRegister(w http.ResponseWriter, r *http.Request)
-	GetUserRegisterbyID(w http.ResponseWriter, r *http.Request)
+	RegisterUser(c *gin.Context)
+	GetUserRegister(c *gin.Context)
+	GetUserRegisterbyID(c *gin.Context)
 }
 
 func NewUserService(db []*User) UserIface {
@@ -49,42 +50,41 @@ func (u *UserService) GetUserbyID(number int) *User {
 	return nil
 }
 
-func (u *UserService) GetUserRegister(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+func (u *UserService) GetUserRegister(c *gin.Context) {
+	c.Writer.Header().Set("Content-Type", "application/json")
 
-	if r.Method == "GET" {
+	if c.Request.Method == "GET" {
 		resGet := u.GetUser()
-		json.NewEncoder(w).Encode(resGet)
+		c.JSON(http.StatusOK, resGet)
 		return
 	}
 
-	http.Error(w, "Invalid method", http.StatusBadRequest)
+	c.JSON(http.StatusBadRequest, "Invalid method")
 }
 
-func (u *UserService) RegisterUser(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+func (u *UserService) RegisterUser(c *gin.Context) {
 
-	if r.Method == "POST" {
-		id, _ := strconv.Atoi(r.FormValue("id"))
-		user := u.Register(&User{ID: id, Nama: r.FormValue("name")})
+	if c.Request.Method == "POST" {
+		id, _ := strconv.Atoi(c.Params.ByName("id"))
+		user := u.Register(&User{ID: id, Nama: c.Params.ByName("name")})
 		fmt.Println(user)
-		json.NewEncoder(w).Encode(user)
+		c.JSON(http.StatusOK, user)
 		return
 	}
 
-	http.Error(w, "Invalid method", http.StatusBadRequest)
+	c.JSON(http.StatusBadRequest, "Invalid method")
 }
 
-func (u *UserService) GetUserRegisterbyID(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+func (u *UserService) GetUserRegisterbyID(c *gin.Context) {
+	c.Writer.Header().Set("Content-Type", "application/json")
 
-	if r.Method == "GET" {
-		id, _ := strconv.Atoi(r.FormValue("id"))
+	if c.Request.Method == "GET" {
+		id, _ := strconv.Atoi(c.Params.ByName("id"))
 		user := u.GetUserbyID(id)
-		json.NewEncoder(w).Encode(user)
+		c.JSON(http.StatusOK, user)
 		return
 
 	}
 
-	http.Error(w, "Invalid method", http.StatusBadRequest)
+	c.JSON(http.StatusBadRequest, "Invalid method")
 }
