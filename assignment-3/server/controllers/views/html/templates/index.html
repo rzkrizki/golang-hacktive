@@ -1,0 +1,116 @@
+{{ template "header.html" .}}
+<div class="row-container">
+  <div class="col-2 container-aman">
+    <div class="row-container">
+      <div class="status-left text-dark">
+        Water
+      </div>
+      <div class="status-right">
+        Indicator : =< 5m </div>
+      </div>
+      <div class="row-container status-content">
+        Aman
+      </div>
+    </div>
+    <div class="col-2 container-siaga">
+      <div class="row-container">
+        <div class="status-left">
+          Water
+        </div>
+        <div class="status-right">
+          Indicator : 6m - 8m
+        </div>
+      </div>
+      <div class="row-container status-content">
+        Siaga
+      </div>
+    </div>
+    <div class="col-2 container-bahaya">
+      <div class="row-container">
+        <div class="status-left">
+          Water
+        </div>
+        <div class="status-right">
+          Indicator : > 8m
+        </div>
+      </div>
+      <div class="row-container status-content">
+        Bahaya
+      </div>
+    </div>
+    <div class="col-2 container-aman">
+      <div class="row-container">
+        <div class="status-left">
+          Wind
+        </div>
+        <div class="status-right">
+          Indicator : =< 6m/s </div>
+        </div>
+        <div class="row-container status-content">
+          Aman
+        </div>
+      </div>
+      <div class="col-2 container-siaga">
+        <div class="row-container">
+          <div class="status-left">
+            Wind
+          </div>
+          <div class="status-right">
+            Indicator : 7 - 15m/s
+          </div>
+        </div>
+        <div class="row-container status-content">
+          Siaga
+        </div>
+      </div>
+      <div class="col-2 container-bahaya">
+        <div class="row-container">
+          <div class="status-left">
+            Wind
+          </div>
+          <div class="status-right">
+            Indicator : > 15m/s
+          </div>
+        </div>
+        <div class="row-container status-content">
+          Bahaya
+        </div>
+      </div>
+    </div>
+    <div class="row-container mt-3">
+      <div class="container-left">
+        <div class="container background-container-left">
+          <span class="title-left">Water</span>
+          <div class="min-vh-100 d-flex flex-row align-items-center">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="mb-4 mx-4">
+                  <div class="text-center">
+                    <span id="content-left"></span><br>
+                    <span id="sub-content-left"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-right">
+        <div class="container background-container-right">
+          <span class="title-right">Wind</span>
+          <div class="min-vh-100 d-flex flex-row align-items-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="mb-4 mx-4">
+                <div class="text-center"> 
+                  <span id="content-right"></span><br>
+                  <span id="sub-content-right"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    {{ template "footer.html" .}}
